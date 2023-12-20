@@ -10,23 +10,23 @@ root.title("MileageMate")
 root.geometry("1200x700")
 
 
-def leftPaneEnter(event):
-    for i in range(leftPane.cget("width"), 300, 10):
-        print(body.winfo_pointerx())
-        headersPane.place(x=headersPane.winfo_x()+5, y=50)
-        leftPane.update()
-        leftPane.configure(True, width=i)
-    mainImageLabel.place_forget()
-    mainLabel.place(anchor=N, relx=0.5, rely=0.02)
-
-
-def leftPaneLeave(event):
-    mainLabel.place_forget()
-    mainImageLabel.place(anchor=N, relx=0.5, rely=0.02)
-    for i in range(leftPane.cget("width"), 100, -10):
-        headersPane.place(x=headersPane.winfo_x()-5, y=50)
-        leftPane.update()
-        leftPane.configure(True, width=i)
+def leftPaneEnter():
+    button.configure(state="disabled")
+    if leftPane.cget("width")==100:
+        for i in range(leftPane.cget("width"), 300, 10):
+            headersPane.place(x=headersPane.winfo_x()+5, y=50)
+            leftPane.update()
+            leftPane.configure(True, width=i+10)
+        mainImageLabel.place_forget()
+        mainLabel.place(anchor=N, relx=0.5, rely=0.02)
+    else:
+        mainLabel.place_forget()
+        mainImageLabel.place(anchor=N, relx=0.5, rely=0.02)
+        for i in range(leftPane.cget("width"), 100, -10):
+            headersPane.place(x=headersPane.winfo_x()-5, y=50)
+            leftPane.update()
+            leftPane.configure(True, width=i-10)
+    button.configure(state="normal")
 
 
 body = ctk.CTkFrame(root, width=1200, height=700, fg_color="#1D1D1D", corner_radius=10)
@@ -34,8 +34,10 @@ body.pack()
 
 leftPane = ctk.CTkFrame(body, width=100, height=680, fg_color="#444554", corner_radius=10)
 leftPane.place(x=10, y=10)
-leftPane.bind('<Enter>', leftPaneEnter)
-leftPane.bind('<Leave>', leftPaneLeave)
+
+button = ctk.CTkButton(leftPane, text="Open", fg_color="#7F7B82", hover_color="#444554",
+                        font=("Helvetica", 13, "bold"),cursor="hand2",command=leftPaneEnter,width=75)
+button.place(anchor=N, relx=0.5, rely=0.95)
 
 mainLabel = ctk.CTkLabel(leftPane, text="MileageMate", font=("Helvetica", 17, "bold"))
 
