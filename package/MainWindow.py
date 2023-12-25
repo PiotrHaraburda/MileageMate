@@ -10,6 +10,7 @@ root.title("MileageMate")
 root.geometry("1200x700")
 
 
+
 def leftPaneEnter():
     button.configure(state="disabled")
     if leftPane.cget("width")==100:
