@@ -3,7 +3,7 @@ import customtkinter as ctk
 
 class LoginWindow(ctk.CTk):
 
-    def __init__(self, master, other_window, mainImage, **kwargs):
+    def __init__(self, master, other_window, mainImage, crud, **kwargs):
         super().__init__(**kwargs)
         self.master = master
 
@@ -63,8 +63,7 @@ class LoginWindow(ctk.CTk):
     def login_callback(self):
         self.master.after(1, self.resizeWindow(0))
 
-
-    def resizeWindow(self,score):
+    def resizeWindow(self, score):
         score += 1
         if score < 30:
             width = int(self.master.winfo_width() + 10)
