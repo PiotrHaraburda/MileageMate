@@ -2,6 +2,7 @@ import tkinter as tk
 import customtkinter as ctk
 import package.LoginWindow
 import package.RegisterWindow
+import package.FirebaseCRUD
 from PIL import Image
 
 root = ctk.CTk()
@@ -11,9 +12,10 @@ root.withdraw()
 root2.withdraw()
 
 mainImage = ctk.CTkImage(light_image=Image.open("package/mainImg.png"), size=(45, 45))
+crud = package.FirebaseCRUD.FirebaseCRUD()
 
-app = package.LoginWindow.LoginWindow(root, root2,mainImage)
-app2 = package.RegisterWindow.RegisterWindow(root2, root,mainImage)
+app = package.LoginWindow.LoginWindow(root, root2, mainImage, crud)
+app2 = package.RegisterWindow.RegisterWindow(root2, root, mainImage, crud)
 
 
 def main():
@@ -28,7 +30,7 @@ def main():
     y = (hs / 2) - (h / 2)
     root.geometry('+%d+%d' % (x, y))
     root.config(background="white")
-    root.resizable(False,False)
+    root.resizable(False, False)
 
     root2.geometry("600x540")
     root2.title("MileageMate Register Page")
@@ -41,7 +43,7 @@ def main():
     y = (hs / 2) - (h / 2)
     root2.geometry('+%d+%d' % (x, y))
     root2.config(background="white")
-    root2.resizable(False,False)
+    root2.resizable(False, False)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root2.protocol("WM_DELETE_WINDOW", on_closing)
